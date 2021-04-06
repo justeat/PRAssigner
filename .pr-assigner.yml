@@ -1,0 +1,31 @@
+# List of GitHub pull request event actions to continue the execution of PR Assigner.
+# Full list here: https://docs.github.com/en/developers/webhooks-and-events/github-event-types#pullrequestevent
+pr_actions:
+  - "opened"
+  - "reopened"
+  - "review_requested"
+
+# Number of reviewers to assign to the PR on GitHub.
+number_of_reviewers: 2
+
+# List of Slack status that let discard the selected reviewer.
+# They are all emoji in the Slack format.
+discardable_slack_status:
+  - ":face_with_thermometer:"
+  - ":palm_tree:"
+  - ":books:"
+
+# If true, reviewers won't get assigned to draft PRs.
+skip_draft: false
+
+# Slack channel in which will be posted messages tagging selected reviewers.
+# Make sure both your Slack app and all your candidates reviewers are invited in this channel.
+#
+# It can be both the channel name (ex. #ios-prs) or the Slack ID.
+# The channel can be public or private.
+slack_pr_channel: "#team-ios-pr-dr"
+
+# List of candidates to be assigned to a PR.
+# The value needs to contain the GitHub username and the Slack ID separate by ":" (ex. "andreaantonioni:ABCD1234").
+reviewers:
+  - "andreaantonioni:ABCD1234"

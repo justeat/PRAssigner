@@ -1,0 +1,47 @@
+service: PRAssigner
+
+package:
+  artifact: .build/lambda/PRAssigner/lambda.zip
+
+custom: ${file(./.secrets.yml)}
+
+provider:
+  name: aws
+  runtime: provided
+  region: ${self:custom.region}
+  environment:
+    DEBUG: false
+  versionFunctions: false
+  vpc: ${self:custom.vpc}
+  logRetentionInDays: 14
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - secretsmanager:GetSecretValue
+          Resource: "arn:aws:secretsmanager:${self:custom.region}:${self:custom.account_id}:secret:*"
+  apiGateway:
+    resourcePolicy: ${self:custom.resourcePolicy}
+
+
+functions:
+  handler:
+    handler: handler
+    description: Swift AWS Lambda to automatically assign engineers to pull requests with a Slack integration
+    memorySize: 128
+    reservedConcurrency: 1
+    timeout: 30
+    environment: ${self:custom.environment}
+    events:
+      - http:
+          path: github-event
+          integration: lambda
+          method: post
+          request:
+            template:
+              application/x-www-form-urlencoded: null
+              application/json: null
+            passThrough: WHEN_NO_MATCH
+                
+        
