@@ -2,6 +2,8 @@
 <img src="./assets/pr_assigner_logo.png" alt="logo" width="250" height="250"/>
 </p>
 
+### Warning: This library is not supported by Just Eat Takeaway anymore and therefore considered deprecated. The repository has been archived.
+
 # PR Assigner
 A Swift AWS Lambda to automatically assign engineers to pull requests with a Slack integration.
 
